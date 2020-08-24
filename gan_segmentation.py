@@ -194,7 +194,7 @@ def save_data(gen_loss_arrray, d_loss1, d_loss2, epoch, avg):
     )
     df.to_csv(csv_path + '/' + 'performance.csv', index=False, encoding='utf-8')
     if len(os.listdir(root)) == 0:
-        filename = save_path + 'satellite_images_{}_{}_{}.npz'.format(d_loss1[-1], d_loss2[-1], gen_loss_arrray[-1])
+        filename = save_path + 'doc_images_{}_{}_{}.npz'.format(d_loss1[-1], d_loss2[-1], gen_loss_arrray[-1])
         last_inserted = filename
         plt.plot(gen_loss_arrray, label='generator')
         plt.plot(d_loss1, label='disc1')
@@ -217,7 +217,7 @@ def save_data(gen_loss_arrray, d_loss1, d_loss2, epoch, avg):
         plt.plot(current_d2_losses, label='disc2')
         plt.legend()
         plt.savefig(save_path + '{}.png'.format(gen_loss_arrray[-1]))
-        filename = save_path + 'satellite_images_{}_{}_{}.npz'.format(d_loss1[-1], d_loss2[-1], gen_loss_arrray[-1])
+        filename = save_path + 'doc_images_{}_{}_{}.npz'.format(d_loss1[-1], d_loss2[-1], gen_loss_arrray[-1])
         last_inserted = filename
         savez_compressed(filename, current_d1_losses, current_d2_losses, current_gen_losses)
     plt.close()
