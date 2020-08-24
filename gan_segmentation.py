@@ -17,7 +17,7 @@ from numpy import savez_compressed
 import pandas as pd
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--model", type=str, help="path to *specific* model checkpoint to load")
+parser.add_argument("-m", "--model", type=str, default = None, help="path to *specific* model checkpoint to load")
 parser.add_argument("-s", "--start_epoch", type=int, default=0, help="epoch to restart training at")
 parser.add_argument("-d", "--data_path", type=str, help="path of dataset")
 parser.add_argument("-cn", "--last_checkpoint_npz", type=str, default=None,
@@ -44,7 +44,7 @@ def load_data(req_shape=(256, 256, 3)):
     global data_path
     
     data  = os.listdir(data_path)
-    #0
+    
     data0 = load(data_path + data[0])
     X_images1, X_target1 = data0['arr_0'], data0['arr_1']
     
@@ -223,7 +223,10 @@ def save_data(gen_loss_arrray, d_loss1, d_loss2, epoch, avg):
     plt.close()
 def train(d_model, g_model, gan_model, X_images, X_target, n_epochs=300, n_batch=1):
     global root_path
-    prev_best = float(last_checkpoint_npz.split('_')[-1][:-4])
+    if start_epoch == 0:
+    	prev_best = 0
+    else:
+    	prev_best = float(last_checkpoint_npz.split('_')[-1][:-4])
     n_patch = d_model.output_shape[1]
     trainA, trainB = X_images, X_target
     bat_per_epo = int(len(trainA) / n_batch)
