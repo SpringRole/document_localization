@@ -224,7 +224,7 @@ def save_data(gen_loss_arrray, d_loss1, d_loss2, epoch, avg):
 def train(d_model, g_model, gan_model, X_images, X_target, n_epochs=300, n_batch=1):
     global root_path
     if start_epoch == 0:
-    	prev_best = 0
+    	prev_best = 10**10
     else:
     	prev_best = float(last_checkpoint_npz.split('_')[-1][:-4])
     n_patch = d_model.output_shape[1]
